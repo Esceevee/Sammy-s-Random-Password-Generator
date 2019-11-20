@@ -18,25 +18,28 @@ def InputNumber():
 		theInput = int(theInput)
 	except:
 		passwordContent.set("That's an invalid input! Please enter a valid number for the lenght of your password.")
-	if(theInput > 127):
-		passwordContent.set("Oops! Sorry. That password is a bit unwieldy. Try a number below 128")
-	elif(theInput < 8):
-		passwordContent.set("Oops! Sorry. That password is too short to be secure. Try a longer password.")
-	else:
-		return theInput
+	else:	
+		if(theInput > 127):
+			passwordContent.set("Oops! Sorry. That password is a bit unwieldy. Try a number below 128")
+		elif(theInput < 8):
+			passwordContent.set("Oops! Sorry. That password is too short to be secure. Try a longer password.")
+		else:
+			return theInput
 
 def StringGenerator():
 	listOfLetters = []
 	letter = "a"
 	passwordString = ""
-
-	for i in range(InputNumber()):
-		letter = random.choice(string.printable)
-		while(letter == "\n" or letter == " " or letter == "\t" or letter == "\r" or letter == "\x0b" or letter == "\x0c"):
+	try:
+		for i in range(InputNumber()):
 			letter = random.choice(string.printable)
-		listOfLetters.append(letter)
-		passwordString = ''.join(listOfLetters)
-		passwordContent.set(passwordString)
+			while(letter == "\n" or letter == " " or letter == "\t" or letter == "\r" or letter == "\x0b" or letter == "\x0c"):
+				letter = random.choice(string.printable)
+			listOfLetters.append(letter)
+			passwordString = ''.join(listOfLetters)
+			passwordContent.set(passwordString)
+	except:
+		pass
 
 # Open window having dimension 900x200 
 root.geometry('900x200')  
